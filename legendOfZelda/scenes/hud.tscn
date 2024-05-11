@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmdyjrkjd6tfs"]
+
+[ext_resource type="Texture2D" uid="uid://dqkokl84fosxv" path="res://sprites/hpTexture2.png" id="1_1al73"]
+[ext_resource type="Texture2D" uid="uid://dd3u2v62rdlo" path="res://sprites/hpTexture1.png" id="2_5m2lj"]
+[ext_resource type="FontFile" uid="uid://cfl5rohdhwhh7" path="res://fonts/the-legend-of-zelda-nes.ttf" id="3_w7e7l"]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="BackGround" type="ColorRect" parent="."]
+anchors_preset = -1
+anchor_top = -0.0384615
+anchor_right = 1.8125
+anchor_bottom = -0.0384615
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+metadata/_edit_group_ = true
+
+[node name="hpBar" type="TextureProgressBar" parent="."]
+offset_left = 440.0
+offset_top = 8.0
+offset_right = 492.0
+offset_bottom = 28.0
+max_value = 3.0
+step = 0.5
+value = 3.0
+texture_under = ExtResource("1_1al73")
+texture_progress = ExtResource("2_5m2lj")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.0625
+anchor_top = -0.0432692
+anchor_right = 0.0625
+anchor_bottom = -0.0432692
+offset_left = 416.0
+offset_top = 8.99999
+offset_right = 480.0
+offset_bottom = 29.0
+scale = Vector2(2.0054, 1.63418)
+theme_override_fonts/font = ExtResource("3_w7e7l")
+theme_override_font_sizes/font_size = 5
+text = "-LIFE-"
+uppercase = true
+metadata/_edit_use_anchors_ = true
+metadata/_edit_group_ = true

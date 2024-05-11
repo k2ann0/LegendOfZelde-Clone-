@@ -1,0 +1,152 @@
+[gd_scene load_steps=15 format=3 uid="uid://bnoxtx4kl4ud4"]
+
+[ext_resource type="Script" path="res://scripts/Enemy.gd" id="1_71h82"]
+[ext_resource type="Texture2D" uid="uid://yxp6n87rwvsj" path="res://sprites/enemy.png" id="2_kvhvg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vyhym"]
+atlas = ExtResource("2_kvhvg")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e85xb"]
+atlas = ExtResource("2_kvhvg")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdnd1"]
+atlas = ExtResource("2_kvhvg")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4inr"]
+atlas = ExtResource("2_kvhvg")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w31mv"]
+atlas = ExtResource("2_kvhvg")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bchew"]
+atlas = ExtResource("2_kvhvg")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4j6kw"]
+atlas = ExtResource("2_kvhvg")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0bnf"]
+atlas = ExtResource("2_kvhvg")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cpsk1"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vyhym")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e85xb")
+}],
+"loop": true,
+"name": &"walkDown ",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdnd1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4inr")
+}],
+"loop": true,
+"name": &"walkLeft",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w31mv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bchew")
+}],
+"loop": true,
+"name": &"walkRight",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4j6kw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m0bnf")
+}],
+"loop": true,
+"name": &"walkUp",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s1urc"]
+size = Vector2(8.73514, 16.1514)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_50se0"]
+radius = 15.3915
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pl5sg"]
+size = Vector2(8.73514, 16.1514)
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("rcArray")]
+position = Vector2(192, 96)
+motion_mode = 1
+script = ExtResource("1_71h82")
+maxX = 320.0
+minX = -320.0
+maxY = 267.0
+minY = -267.0
+rcArray = [null, null, null, null]
+metadata/_edit_group_ = true
+
+[node name="aniSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.749209, 0.761116)
+sprite_frames = SubResource("SpriteFrames_cpsk1")
+animation = &"walkDown "
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_s1urc")
+debug_color = Color(0.18526, 0.176081, 0.880727, 0.42)
+
+[node name="SeeArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SeeArea"]
+scale = Vector2(0.903845, 1.47824)
+shape = SubResource("CircleShape2D_50se0")
+debug_color = Color(0.862003, 0.71093, 0, 0.42)
+
+[node name="enemyArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemyArea"]
+shape = SubResource("RectangleShape2D_pl5sg")
+debug_color = Color(0.986432, 0, 0.323651, 0.42)
+
+[node name="RCRight" type="RayCast2D" parent="."]
+position = Vector2(1.90735e-06, 0)
+target_position = Vector2(-17.4703, 0)
+
+[node name="RCLeft" type="RayCast2D" parent="."]
+position = Vector2(1.90735e-06, 0)
+target_position = Vector2(17.4703, 0)
+
+[node name="RCDown" type="RayCast2D" parent="."]
+position = Vector2(1.90735e-06, 0)
+target_position = Vector2(0, 24.2271)
+
+[node name="RCUp" type="RayCast2D" parent="."]
+position = Vector2(1.90735e-06, 0)
+target_position = Vector2(0, -24.2271)
+
+[connection signal="body_entered" from="SeeArea" to="." method="_on_see_area_body_entered"]
+[connection signal="body_exited" from="SeeArea" to="." method="_on_see_area_body_exited"]
